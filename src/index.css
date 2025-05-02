@@ -1,9 +1,11 @@
-body {
+html, body {
 
-  margin: 100;
-  padding: 100;
-  background-color: #eee;
+  margin: 0;
+  padding: 0;
+  background-color: #4cbd5f;
   font-family: sans-serif;
+  overflow: hidden; /* remove a barra de rolagem */
+  height: 100%;
 }
 .teste{
   position: absolute;

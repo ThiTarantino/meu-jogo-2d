@@ -14,7 +14,7 @@ function App() {
     const context = canvas?.getContext('2d');
     if (!canvas || !context) return;
 
-    const speed = 5; // Velocidade do movimento
+    const speed = 10; // Velocidade do movimento
 
     // Estado para controlar as teclas pressionadas
     const keys = {
@@ -117,7 +117,24 @@ function App() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-      <canvas ref={canvasRef} width={512} height={512} style={{ border: '1px solid black' }} />
+      <canvas
+  ref={canvasRef}
+  width={window.innerWidth}
+  height={window.innerHeight}
+  style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    border: 'none',
+    margin: 0,
+    padding: 0,
+    display: 'block',
+    zIndex: 0,
+  }}
+/>
+
     </div>
   );
 }
