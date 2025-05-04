@@ -2,7 +2,7 @@ html, body {
 
   margin: 0;
   padding: 0;
-  background-color: #4cbd5f;
+  background-color: rgb(175, 191, 7);
   font-family: sans-serif;
   overflow: hidden; /* remove a barra de rolagem */
   height: 100%;
