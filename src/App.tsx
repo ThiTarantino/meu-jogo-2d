@@ -204,6 +204,19 @@ function App() {
           directionRef.current = 'right';
         }
       }
+      if (posRef.current.x > 1864) {
+        posRef.current.x = 0;
+      }
+      if (posRef.current.x < -4) {
+        posRef.current.x = 1864;
+      }
+
+      if (posRef.current.y < 0) {
+        posRef.current.y = 900;
+      }
+      if (posRef.current.y > 900) {
+        posRef.current.y = 0;
+      }
 
       setRenderPos({ x: posRef.current.x, y: posRef.current.y });
       setDirection(directionRef.current);
@@ -346,6 +359,22 @@ function App() {
           zIndex: 0,
         }}
       />
+
+      <div
+        style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          background: 'rgba(255, 255, 255, 0.7)',
+          padding: '10px',
+          borderRadius: '5px',
+          zIndex: 1000,
+          fontFamily: 'sans-serif',
+          fontSize: '14px',
+        }}
+      >
+        Coordenadas: X: {Math.round(renderPos.x)}, Y: {Math.round(renderPos.y)}
+      </div>
 
       {showWelcomePopup && (
         <div
