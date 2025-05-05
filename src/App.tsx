@@ -14,13 +14,59 @@ function App() {
   const [renderPos, setRenderPos] = useState({ x: 900, y: 600 });
   const [direction, setDirection] = useState('down');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
+  const [modalContent, setModalContent] = useState<string | null>(null);
 
   const npcs = [
-    { id: 1, x: 650, y: 200, radius: 100, message: 'Olá, como vai?' },
-    { id: 2, x: 1250, y: 300, radius: 100, message: 'Bom dia!' },
-    { id: 3, x: 350, y: 400, radius: 100, message: 'Precisa de ajuda?' },
-    { id: 4, x: 1650, y: 500, radius: 100, message: 'Cuidado por aí!' },
-    { id: 5, x: 550, y: 700, radius: 100, message: 'Tudo bem?' },
+    {
+      id: 1,
+      x: 650,
+      y: 200,
+      radius: 100,
+      message: 'Clique ENTER para visitar meu GitHub!',
+      action: () => {
+        window.open('https://github.com/ThiTarantino', '_blank');
+      },
+    },
+    {
+      id: 2,
+      x: 1250,
+      y: 300,
+      radius: 100,
+      message: 'Aperte ENTER para falar comigo no WhatsApp!',
+      action: () => {
+        window.open('https://wa.me/5551986044261', '_blank');
+      },
+    },
+    {
+      id: 3,
+      x: 350,
+      y: 400,
+      radius: 100,
+      message: 'Pressione ENTER para ver minhas habilidades!',
+      action: () => {
+        setModalContent('Habilidades: JavaScript, TypeScript, React, Node.js, etc.');
+      },
+    },
+    {
+      id: 4,
+      x: 1650,
+      y: 500,
+      radius: 100,
+      message: 'Use ENTER para ver meus projetos!',
+      action: () => {
+        setModalContent('Projetos: Portfólio online, aplicação web X, jogo 2D Y.');
+      },
+    },
+    {
+      id: 5,
+      x: 550,
+      y: 700,
+      radius: 100,
+      message: 'Aperte ENTER para uma surpresa!',
+      action: () => {
+        setModalContent('Você encontrou um NPC surpresa!');
+      },
+    },
   ];
 
   const nearNPCRef = useRef<typeof npcs[0] | null>(null);
@@ -61,6 +107,12 @@ function App() {
 
       if (e.key === 'Enter' && nearNPCRef.current && !showModalRef.current) {
         showModalRef.current = true;
+        if (nearNPCRef.current.action) {
+          nearNPCRef.current.action();
+        }
+        setTimeout(() => {
+          showModalRef.current = false;
+        }, 500);
       }
     };
 
@@ -134,7 +186,7 @@ function App() {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       // Lógica de movimento
-      if (!showModalRef.current) {
+      if (!showModalRef.current && !modalContent) {
         if (keys.current.ArrowUp) {
           posRef.current.y -= speed;
           directionRef.current = 'up';
@@ -157,7 +209,7 @@ function App() {
       setDirection(directionRef.current);
 
       // Verificação de NPCs próximos
-      if (!showModalRef.current) {
+      if (!showModalRef.current && !modalContent) {
         let closestNPC = null;
         let minDistance = Infinity;
 
@@ -212,7 +264,7 @@ function App() {
         }
 
         flagAnimationRef.current.time += flagAnimationRef.current.animationSpeed;
-        flagAnimationRef.current.frame = 
+        flagAnimationRef.current.frame =
           Math.floor(flagAnimationRef.current.time) % flagAnimationRef.current.frameCount;
 
         context.drawImage(
@@ -222,7 +274,7 @@ function App() {
           flagAnimationRef.current.frameWidth,
           flagAnimationRef.current.frameHeight,
           1400, // Posição X da bandeira
-          200,  // Posição Y da bandeira
+          200, // Posição Y da bandeira
           flagAnimationRef.current.frameWidth,
           flagAnimationRef.current.frameHeight
         );
@@ -233,7 +285,7 @@ function App() {
         }
 
         fogueiraa.current.time += fogueiraa.current.animationSpeed;
-        fogueiraa.current.frame = 
+        fogueiraa.current.frame =
           Math.floor(fogueiraa.current.time) % fogueiraa.current.frameCount;
 
         context.drawImage(
@@ -243,7 +295,7 @@ function App() {
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight,
           335, //
-          483,  // 
+          483, //
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight
         );
@@ -270,6 +322,10 @@ function App() {
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
+  const closeModal = () => {
+    setModalContent(null);
+  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
@@ -314,7 +370,7 @@ function App() {
         </div>
       )}
 
-      {nearNPCRef.current && !showModalRef.current && (
+      {nearNPCRef.current && !showModalRef.current && !modalContent && (
         <div
           style={{
             position: 'absolute',
@@ -351,66 +407,40 @@ function App() {
         </div>
       )}
 
-      {showModalRef.current && nearNPCRef.current && (
+      {modalContent && (
         <div
           style={{
-            position: 'fixed',
+            position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'white',
+            background: 'white',
+            color: 'black',
             padding: '20px',
             borderRadius: '8px',
-            zIndex: 100,
-            border: '2px solid #4a90e2',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-            maxWidth: '80%',
-            width: '400px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            zIndex: 20,
+            textAlign: 'center',
+            minWidth: '300px',
           }}
         >
-          <div
+          <button
+            onClick={closeModal}
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '15px',
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              color: '#333',
             }}
           >
-            <h3 style={{ margin: 0 }}>Informações</h3>
-            <button
-              onClick={() => {
-                showModalRef.current = false;
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                fontSize: '20px',
-                cursor: 'pointer',
-              }}
-            >
-              ×
-            </button>
-          </div>
-          <div>
-            <p>{nearNPCRef.current.message}</p>
-            <div style={{ marginTop: '20px' }}>
-              <h4>Linguagens que domino:</h4>
-              <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/js-logo.png" alt="JavaScript" width="40" height="40" />
-                  <p>JavaScript</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/ts-logo.png" alt="TypeScript" width="40" height="40" />
-                  <p>TypeScript</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/python-logo.png" alt="Python" width="40" height="40" />
-                  <p>Python</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            X
+          </button>
+          <p>{modalContent}</p>
         </div>
       )}
     </div>
