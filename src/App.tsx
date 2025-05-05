@@ -25,6 +25,26 @@ function App() {
 
   const nearNPCRef = useRef<typeof npcs[0] | null>(null);
   const showModalRef = useRef(false);
+  const bandeiraCarregadaRef = useRef(false);
+  const fogueiraCarregadaRef = useRef(false);
+
+  // Configuração da animação da bandeira
+  const flagAnimationRef = useRef({
+    frame: 0,
+    frameCount: 6,
+    frameWidth: 32,
+    frameHeight: 64,
+    animationSpeed: 0.1,
+    time: 0,
+  });
+  const fogueiraa = useRef({
+    frame: 0,
+    frameCount: 6,
+    frameWidth: 32,
+    frameHeight: 64,
+    animationSpeed: 0.1,
+    time: 0,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -64,13 +84,36 @@ function App() {
       homem1: new Image(),
       homem2: new Image(),
       house: new Image(),
-      arvore: new Image(),
+      arvore2: new Image(),
+      arvore1: new Image(),
       arbusto: new Image(),
       planta: new Image(),
+      terra: new Image(),
+      terra1: new Image(),
+      terra2: new Image(),
+      terra3: new Image(),
+      terra4: new Image(),
+      tronco: new Image(),
+      tronco1: new Image(),
+      tronco2: new Image(),
+      localfogueira: new Image(),
+      bandeira: new Image(),
+      fogueira: new Image(),
     };
 
+    // Carregar imagens
+    images.localfogueira.src = '/localfogueira.png';
+    images.tronco.src = '/tronco.png';
+    images.tronco1.src = '/tronco1.png';
+    images.tronco2.src = '/tronco2.png';
+    images.terra.src = '/terra.png';
+    images.terra1.src = '/terra1.png';
+    images.terra2.src = '/terra2.png';
+    images.terra3.src = '/terra3.png';
+    images.terra4.src = '/terra4.png';
     images.arbusto.src = '/arbusto.png';
-    images.arvore.src = '/arvore.png';
+    images.arvore2.src = '/arvore2.png';
+    images.arvore1.src = '/arvore1.png';
     images.up.src = '/MainGirlBack.png';
     images.down.src = '/MainGirlFront.png';
     images.left.src = '/MainGirlRight.png';
@@ -82,12 +125,15 @@ function App() {
     images.house.src = '/house1.png';
     images.mulher.src = '/mulher.png';
     images.mulher1.src = '/mulher1.png';
+    images.bandeira.src = '/bandeira.png';
+    images.fogueira.src = '/fogueira.png';
 
     let animationFrameId: number;
 
     const draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Lógica de movimento
       if (!showModalRef.current) {
         if (keys.current.ArrowUp) {
           posRef.current.y -= speed;
@@ -110,6 +156,7 @@ function App() {
       setRenderPos({ x: posRef.current.x, y: posRef.current.y });
       setDirection(directionRef.current);
 
+      // Verificação de NPCs próximos
       if (!showModalRef.current) {
         let closestNPC = null;
         let minDistance = Infinity;
@@ -128,17 +175,81 @@ function App() {
         nearNPCRef.current = closestNPC;
       }
 
-      context.drawImage(images.arbusto, 300, 700, 100, 100);
+      // Desenhar elementos do mapa
+      context.drawImage(images.terra1, 588, 270, 40, 40);
+      context.drawImage(images.terra1, 588, 310, 40, 40);
+      context.drawImage(images.terra3, 588, 350, 40, 40);
+      context.drawImage(images.terra2, 588, 390, 40, 40);
+      context.drawImage(images.terra4, 588, 410, 40, 40);
+      context.drawImage(images.terra3, 588, 270, 40, 40);
+      context.drawImage(images.terra1, 588, 270, 40, 40);
+      context.drawImage(images.terra1, 1288, 270, 40, 40);
+      context.drawImage(images.terra1, 1288, 310, 40, 40);
+      context.drawImage(images.terra3, 1288, 350, 40, 40);
+      context.drawImage(images.terra2, 1288, 390, 40, 40);
+      context.drawImage(images.terra4, 1288, 410, 40, 40);
+      context.drawImage(images.terra3, 1288, 270, 40, 40);
+      context.drawImage(images.terra1, 1288, 270, 40, 40);
+      context.drawImage(images.localfogueira, 300, 500, 100, 100);
+      context.drawImage(images.tronco, 258, 470, 40, 40);
+      context.drawImage(images.arbusto, 300, 700, 50, 40);
       context.drawImage(images.planta, 700, 200, 1200, 1200);
-      context.drawImage(images.house, 600, 20, 254, 254);
+      context.drawImage(images.house, 500, 20, 254, 254);
       context.drawImage(images.house, 1200, 20, 254, 254);
-      context.drawImage(images.mulher, 600, 200, 90, 90);
+      context.drawImage(images.mulher, 600, 200, 80, 100);
       context.drawImage(images.mulher1, 1200, 300, 90, 90);
       context.drawImage(images.homem, 300, 400, 100, 100);
       context.drawImage(images.homem1, 1600, 500, 100, 100);
       context.drawImage(images.homem2, 500, 700, 100, 100);
-      context.drawImage(images.planta, 500, 200, 600, 600);
+      context.drawImage(images.arvore1, 1500, 200, 150, 150);
+      context.drawImage(images.arvore1, 200, 200, 150, 150);
+      context.drawImage(images.arvore2, 200, 400, 50, 50);
 
+      // Desenhar bandeira animada (apenas quando carregada)
+      if (images.bandeira.complete) {
+        if (!bandeiraCarregadaRef.current) {
+          bandeiraCarregadaRef.current = true;
+        }
+
+        flagAnimationRef.current.time += flagAnimationRef.current.animationSpeed;
+        flagAnimationRef.current.frame = 
+          Math.floor(flagAnimationRef.current.time) % flagAnimationRef.current.frameCount;
+
+        context.drawImage(
+          images.bandeira,
+          flagAnimationRef.current.frame * flagAnimationRef.current.frameWidth,
+          0,
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight,
+          1400, // Posição X da bandeira
+          200,  // Posição Y da bandeira
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight
+        );
+      }
+      if (images.fogueira.complete) {
+        if (!fogueiraCarregadaRef.current) {
+          fogueiraCarregadaRef.current = true;
+        }
+
+        fogueiraa.current.time += fogueiraa.current.animationSpeed;
+        fogueiraa.current.frame = 
+          Math.floor(fogueiraa.current.time) % fogueiraa.current.frameCount;
+
+        context.drawImage(
+          images.fogueira,
+          fogueiraa.current.frame * fogueiraa.current.frameWidth,
+          0,
+          fogueiraa.current.frameWidth,
+          fogueiraa.current.frameHeight,
+          335, //
+          483,  // 
+          fogueiraa.current.frameWidth,
+          fogueiraa.current.frameHeight
+        );
+      }
+
+      // Desenhar personagem
       const currentImage = images[directionRef.current as keyof typeof images] || images.down;
       context.drawImage(currentImage, posRef.current.x, posRef.current.y, 64, 64);
 
@@ -158,7 +269,7 @@ function App() {
       window.removeEventListener('keyup', handleKeyUp);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []); // Apenas na montagem
+  }, []);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
