@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const posRef = useRef({ x: 900, y: 600 });
+  const posRef = useRef({ x: 870, y: 500 });
   const directionRef = useRef('down');
   const keys = useRef({
     ArrowUp: false,
@@ -44,7 +44,16 @@ function App() {
       radius: 100,
       message: 'Pressione ENTER para ver minhas habilidades!',
       action: () => {
-        setModalContent('Habilidades: JavaScript, TypeScript, React, Node.js, etc.');
+        setModalContent(`
+          <div>
+            <img
+              src="/javascript.png"
+              alt="JavaScript Logo"
+              style="width: 20px; vertical-align: middle; margin-right: 8px;"
+            />
+            JavaScript, TypeScript, React, Node.js, etc.
+          </div>
+        `);
       },
     },
     {
@@ -54,7 +63,14 @@ function App() {
       radius: 100,
       message: 'Use ENTER para ver meus projetos!',
       action: () => {
-        setModalContent('Projetos: Portfólio online, aplicação web X, jogo 2D Y.');
+        setModalContent(`
+          <img
+            src="javascript.png"
+            alt="Ícone de Projetos"
+            style="width: 20px; vertical-align: middle; margin-right: 5px;"
+          />
+          Projetos: Portfólio online, aplicação web X, jogo 2D Y.
+        `);
       },
     },
     {
@@ -139,6 +155,8 @@ function App() {
       arvore2: new Image(),
       arvore1: new Image(),
       arbusto: new Image(),
+      arbusto1: new Image(),
+      arbusto2: new Image(),
       planta: new Image(),
       terra: new Image(),
       terra1: new Image(),
@@ -151,9 +169,19 @@ function App() {
       localfogueira: new Image(),
       bandeira: new Image(),
       fogueira: new Image(),
+      barraca: new Image(),
+      pedra: new Image(),
+      pedra1: new Image(),
+      pedra2: new Image(),
+      javascript: new Image(),
+
     };
 
     // Carregar imagens
+    images.javascript.src = '/javascript.png';
+    images.pedra.src = '/pedra.png';
+    images.pedra1.src = '/pedra1.png';
+    images.pedra2.src = '/pedra2.png';
     images.localfogueira.src = '/localfogueira.png';
     images.tronco.src = '/tronco.png';
     images.tronco1.src = '/tronco1.png';
@@ -164,6 +192,8 @@ function App() {
     images.terra3.src = '/terra3.png';
     images.terra4.src = '/terra4.png';
     images.arbusto.src = '/arbusto.png';
+    images.arbusto1.src = '/arbusto1.png';
+    images.arbusto2.src = '/arbusto2.png';
     images.arvore2.src = '/arvore2.png';
     images.arvore1.src = '/arvore1.png';
     images.up.src = '/MainGirlBack.png';
@@ -179,6 +209,7 @@ function App() {
     images.mulher1.src = '/mulher1.png';
     images.bandeira.src = '/bandeira.png';
     images.fogueira.src = '/fogueira.png';
+    images.barraca.src = '/barraca.png';
 
     let animationFrameId: number;
 
@@ -204,6 +235,7 @@ function App() {
           directionRef.current = 'right';
         }
       }
+      //limita o mapa
       if (posRef.current.x > 1864) {
         posRef.current.x = 0;
       }
@@ -217,6 +249,27 @@ function App() {
       if (posRef.current.y > 900) {
         posRef.current.y = 0;
       }
+      //coloca colisao
+      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x<=660 && posRef.current.x>=480) {
+        posRef.current.y = 210;
+      }
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=460 && posRef.current.x<=470) {
+        posRef.current.x = 460;
+      }
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=600 && posRef.current.x<=700) {
+        posRef.current.x = 700;
+      }
+      //casa2
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=1165 && posRef.current.x<=1170) {
+        posRef.current.x = 1165;
+      }
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=1350 && posRef.current.x<=1390) {
+        posRef.current.x = 1390;
+      }
+      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x<=1380 && posRef.current.x>=1165) {
+        posRef.current.y = 210;
+      }
+
 
       setRenderPos({ x: posRef.current.x, y: posRef.current.y });
       setDirection(directionRef.current);
@@ -241,24 +294,102 @@ function App() {
       }
 
       // Desenhar elementos do mapa
+
+      //vertical esqerda
       context.drawImage(images.terra1, 588, 270, 40, 40);
       context.drawImage(images.terra1, 588, 310, 40, 40);
       context.drawImage(images.terra3, 588, 350, 40, 40);
       context.drawImage(images.terra2, 588, 390, 40, 40);
       context.drawImage(images.terra4, 588, 410, 40, 40);
-      context.drawImage(images.terra3, 588, 270, 40, 40);
-      context.drawImage(images.terra1, 588, 270, 40, 40);
+      context.drawImage(images.terra1, 588, 450, 40, 40);
+      context.drawImage(images.terra1, 588, 490, 40, 40);
+      context.drawImage(images.terra3, 588, 530, 40, 40);
+      context.drawImage(images.terra2, 588, 570, 40, 40);
+      context.drawImage(images.terra4, 588, 610, 40, 40);
+      //vertical esquerda centro
+      context.drawImage(images.terra4, 788, 410, 40, 40);
+      context.drawImage(images.terra1, 788, 450, 40, 40);
+      context.drawImage(images.terra1, 788, 490, 40, 40);
+      context.drawImage(images.terra3, 788, 530, 40, 40);
+      context.drawImage(images.terra2, 788, 570, 40, 40);
+      //vertical direita centro
+      context.drawImage(images.terra4, 1088, 410, 40, 40);
+      context.drawImage(images.terra1, 1088, 450, 40, 40);
+      context.drawImage(images.terra1, 1088, 490, 40, 40);
+      context.drawImage(images.terra3, 1088, 530, 40, 40);
+      context.drawImage(images.terra2, 1088, 570, 40, 40);
+      
+      // horizontam superior
+      context.drawImage(images.terra1, 588, 410, 40, 40);
+      context.drawImage(images.terra1, 628, 410, 40, 40);
+      context.drawImage(images.terra3, 668, 410, 40, 40);
+      context.drawImage(images.terra2, 708, 410, 40, 40);
+      context.drawImage(images.terra4, 748, 410, 40, 40);
+      context.drawImage(images.terra1, 788, 410, 40, 40);
+      context.drawImage(images.terra1, 828, 410, 40, 40);
+      context.drawImage(images.terra3, 868, 410, 40, 40);
+      context.drawImage(images.terra2, 908, 410, 40, 40);
+      context.drawImage(images.terra4, 948, 410, 40, 40);
+      context.drawImage(images.terra1, 988, 410, 40, 40);
+      context.drawImage(images.terra1, 1028, 410, 40, 40);
+      context.drawImage(images.terra3, 1068, 410, 40, 40);
+      context.drawImage(images.terra2, 1108, 410, 40, 40);
+      context.drawImage(images.terra4, 1148, 410, 40, 40);
+      context.drawImage(images.terra2, 1188, 410, 40, 40);
+      context.drawImage(images.terra4, 1208, 410, 40, 40);
+      context.drawImage(images.terra1, 1248, 410, 40, 40);
+      // horizontam inferior
+      context.drawImage(images.terra1, 588, 610, 40, 40);
+      context.drawImage(images.terra1, 628, 610, 40, 40);
+      context.drawImage(images.terra3, 668, 610, 40, 40);
+      context.drawImage(images.terra2, 708, 610, 40, 40);
+      context.drawImage(images.terra4, 748, 610, 40, 40);
+      context.drawImage(images.terra1, 788, 610, 40, 40);
+      context.drawImage(images.terra1, 828, 610, 40, 40);
+      context.drawImage(images.terra3, 868, 610, 40, 40);
+      context.drawImage(images.terra2, 908, 610, 40, 40);
+      context.drawImage(images.terra4, 948, 610, 40, 40);
+      context.drawImage(images.terra1, 988, 610, 40, 40);
+      context.drawImage(images.terra1, 1028, 610, 40, 40);
+      context.drawImage(images.terra3, 1068, 610, 40, 40);
+      context.drawImage(images.terra2, 1108, 610, 40, 40);
+      context.drawImage(images.terra4, 1148, 610, 40, 40);
+      context.drawImage(images.terra2, 1188, 610, 40, 40);
+      context.drawImage(images.terra4, 1208, 610, 40, 40);
+      context.drawImage(images.terra1, 1248, 610, 40, 40);
+     
+     //vertical direita
       context.drawImage(images.terra1, 1288, 270, 40, 40);
       context.drawImage(images.terra1, 1288, 310, 40, 40);
       context.drawImage(images.terra3, 1288, 350, 40, 40);
       context.drawImage(images.terra2, 1288, 390, 40, 40);
       context.drawImage(images.terra4, 1288, 410, 40, 40);
-      context.drawImage(images.terra3, 1288, 270, 40, 40);
-      context.drawImage(images.terra1, 1288, 270, 40, 40);
+      context.drawImage(images.terra1, 1288, 450, 40, 40);
+      context.drawImage(images.terra1, 1288, 490, 40, 40);
+      context.drawImage(images.terra3, 1288, 530, 40, 40);
+      context.drawImage(images.terra2, 1288, 570, 40, 40);
+      context.drawImage(images.terra4, 1288, 610, 40, 40);
+      //Elementos do mapa
+      context.drawImage(images.pedra, 1220, 730, 40, 40);
+      context.drawImage(images.pedra1, 810, 110, 40, 40);
+      context.drawImage(images.pedra2, 1200, 730, 10, 10);
+      context.drawImage(images.pedra, 1220, 730, 40, 40);
+      context.drawImage(images.pedra1, 230, 670, 10, 10);
+      context.drawImage(images.pedra, 160, 390, 30, 30);
       context.drawImage(images.localfogueira, 300, 500, 100, 100);
       context.drawImage(images.tronco, 258, 470, 40, 40);
-      context.drawImage(images.arbusto, 300, 700, 50, 40);
+      context.drawImage(images.tronco2, 290, 580, 70, 30);
+      context.drawImage(images.tronco1, 200, 750, 40, 40);
+      context.drawImage(images.tronco, 258, 470, 40, 40);
+      context.drawImage(images.tronco, 258, 470, 40, 40);
+      context.drawImage(images.arbusto2, 950, 500, 50, 40);
       context.drawImage(images.planta, 700, 200, 1200, 1200);
+      context.drawImage(images.arbusto1, 1710, 390, 50, 40);
+      context.drawImage(images.arbusto, 1410, 710, 50, 40);
+      context.drawImage(images.arbusto, 110, 330, 50, 40);
+      context.drawImage(images.arbusto, 930, 500, 50, 40);
+      context.drawImage(images.arbusto, 930, 500, 50, 40);
+      context.drawImage(images.arbusto, 930, 500, 50, 40);
       context.drawImage(images.house, 500, 20, 254, 254);
       context.drawImage(images.house, 1200, 20, 254, 254);
       context.drawImage(images.mulher, 600, 200, 80, 100);
@@ -268,7 +399,12 @@ function App() {
       context.drawImage(images.homem2, 500, 700, 100, 100);
       context.drawImage(images.arvore1, 1500, 200, 150, 150);
       context.drawImage(images.arvore1, 200, 200, 150, 150);
-      context.drawImage(images.arvore2, 200, 400, 50, 50);
+      context.drawImage(images.arvore2, 70, 190, 50, 50);
+      context.drawImage(images.arvore2, 130, 670, 50, 50);
+      context.drawImage(images.arvore2, 330, 60, 50, 50);
+      context.drawImage(images.arvore2, 330, 780, 50, 50);
+      context.drawImage(images.arvore1, 20, 500, 150, 150);
+      context.drawImage(images.barraca, 380, 320, 130, 130);
 
       // Desenhar bandeira animada (apenas quando carregada)
       if (images.bandeira.complete) {
@@ -286,7 +422,40 @@ function App() {
           0,
           flagAnimationRef.current.frameWidth,
           flagAnimationRef.current.frameHeight,
-          1400, // Posição X da bandeira
+          1450, // Posição X da bandeira
+          200, // Posição Y da bandeira
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight
+        );
+        context.drawImage(
+          images.bandeira,
+          flagAnimationRef.current.frame * flagAnimationRef.current.frameWidth,
+          0,
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight,
+          1150, // Posição X da bandeira
+          200, // Posição Y da bandeira
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight
+        );
+        context.drawImage(
+          images.bandeira,
+          flagAnimationRef.current.frame * flagAnimationRef.current.frameWidth,
+          0,
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight,
+          750, // Posição X da bandeira
+          200, // Posição Y da bandeira
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight
+        );
+        context.drawImage(
+          images.bandeira,
+          flagAnimationRef.current.frame * flagAnimationRef.current.frameWidth,
+          0,
+          flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frameHeight,
+          450, // Posição X da bandeira
           200, // Posição Y da bandeira
           flagAnimationRef.current.frameWidth,
           flagAnimationRef.current.frameHeight
