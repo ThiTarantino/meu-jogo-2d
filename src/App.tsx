@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const posRef = useRef({ x: 870, y: 500 });
@@ -15,6 +16,7 @@ function App() {
   const [direction, setDirection] = useState('down');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
   const [modalContent, setModalContent] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false); 
 
   const npcs = [
     {
@@ -45,13 +47,9 @@ function App() {
       message: 'Pressione ENTER para ver minhas habilidades!',
       action: () => {
         setModalContent(`
+
           <div>
-            <img
-              src="/javascript.png"
-              alt="JavaScript Logo"
-              style="width: 20px; vertical-align: middle; margin-right: 8px;"
-            />
-            JavaScript, TypeScript, React, Node.js, etc.
+            Java, C++,JavaScript, Type Script, React, Node.js 
           </div>
         `);
       },
@@ -64,13 +62,10 @@ function App() {
       message: 'Use ENTER para ver meus projetos!',
       action: () => {
         setModalContent(`
-          <img
-            src="javascript.png"
-            alt="Ícone de Projetos"
-            style="width: 20px; vertical-align: middle; margin-right: 5px;"
-          />
+          
           Projetos: Portfólio online, aplicação web X, jogo 2D Y.
         `);
+        setShowModal(true);
       },
     },
     {
@@ -81,6 +76,7 @@ function App() {
       message: 'Aperte ENTER para uma surpresa!',
       action: () => {
         setModalContent('Você encontrou um NPC surpresa!');
+        setShowModal(true);
       },
     },
   ];
@@ -104,7 +100,7 @@ function App() {
     frameCount: 6,
     frameWidth: 32,
     frameHeight: 64,
-    animationSpeed: 0.1,
+    animationSpeed: 0.08,
     time: 0,
   });
 
@@ -137,6 +133,14 @@ function App() {
         keys.current[e.key as keyof typeof keys.current] = false;
       }
     };
+    const handleEscClose = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && (modalContent || showModalRef.current)) {
+          closeModal();
+      }
+    };
+
+window.addEventListener('keydown', handleEscClose);
+
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
@@ -382,14 +386,21 @@ function App() {
       context.drawImage(images.tronco1, 200, 750, 40, 40);
       context.drawImage(images.tronco, 258, 470, 40, 40);
       context.drawImage(images.tronco, 258, 470, 40, 40);
-      context.drawImage(images.arbusto2, 950, 500, 50, 40);
+      context.drawImage(images.arbusto2, 950, 500, 60, 40);
+      context.drawImage(images.arbusto2, 705, 520, 30, 20);
+      context.drawImage(images.arbusto2, 1200, 520, 30, 20);
       context.drawImage(images.planta, 700, 200, 1200, 1200);
+      context.drawImage(images.planta, 1075, 370, 600, 600);
+      context.drawImage(images.planta, 580, 370, 600, 600);
+      context.drawImage(images.arbusto1, 690, 520, 30, 20);
+      context.drawImage(images.arbusto1, 1190, 520, 30, 20);
       context.drawImage(images.arbusto1, 1710, 390, 50, 40);
       context.drawImage(images.arbusto, 1410, 710, 50, 40);
       context.drawImage(images.arbusto, 110, 330, 50, 40);
-      context.drawImage(images.arbusto, 930, 500, 50, 40);
-      context.drawImage(images.arbusto, 930, 500, 50, 40);
-      context.drawImage(images.arbusto, 930, 500, 50, 40);
+      context.drawImage(images.arbusto, 930, 500, 60, 40);
+      context.drawImage(images.arbusto1, 1180, 790, 60, 40);
+      context.drawImage(images.arbusto1, 1030, 70, 60, 40);
+      
       context.drawImage(images.house, 500, 20, 254, 254);
       context.drawImage(images.house, 1200, 20, 254, 254);
       context.drawImage(images.mulher, 600, 200, 80, 100);
@@ -482,6 +493,27 @@ function App() {
           fogueiraa.current.frameHeight
         );
       }
+      if (images.fogueira.complete) {
+        if (!fogueiraCarregadaRef.current) {
+          fogueiraCarregadaRef.current = true;
+        }
+
+        fogueiraa.current.time += fogueiraa.current.animationSpeed;
+        fogueiraa.current.frame =
+          Math.floor(fogueiraa.current.time) % fogueiraa.current.frameCount;
+
+        context.drawImage(
+          images.fogueira,
+          fogueiraa.current.frame * fogueiraa.current.frameWidth,
+          0,
+          fogueiraa.current.frameWidth,
+          fogueiraa.current.frameHeight,
+          1620, //
+          600, //
+          fogueiraa.current.frameWidth,
+          fogueiraa.current.frameHeight
+        );
+      }
 
       // Desenhar personagem
       const currentImage = images[directionRef.current as keyof typeof images] || images.down;
@@ -501,12 +533,15 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
-      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('keydown', handleEscClose);
+
+      
     };
   }, []);
 
   const closeModal = () => {
     setModalContent(null);
+    
   };
 
   return (
@@ -614,7 +649,7 @@ function App() {
             transform: 'translate(-50%, -50%)',
             background: 'white',
             color: 'black',
-            padding: '20px',
+            padding: '200px',
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
             zIndex: 20,
