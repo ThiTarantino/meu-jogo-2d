@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
+import './App.css';
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +16,7 @@ function App() {
   const [direction, setDirection] = useState('down');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
   const [modalContent, setModalContent] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
   const npcs = [
     {
@@ -47,11 +47,25 @@ function App() {
       message: 'Pressione ENTER para ver minhas habilidades!',
       action: () => {
         setModalContent(`
-
           <div>
-            Java, C++,JavaScript, Type Script, React, Node.js 
+            
+            <br />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <br />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+          </div>
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            
+          </div>
           </div>
         `);
+        setShowModal(true);
       },
     },
     {
@@ -62,8 +76,9 @@ function App() {
       message: 'Use ENTER para ver meus projetos!',
       action: () => {
         setModalContent(`
-          
-          Projetos: Portfólio online, aplicação web X, jogo 2D Y.
+          <div>
+            Projetos: Portfólio online, aplicação web X, jogo 2D Y.
+          </div>
         `);
         setShowModal(true);
       },
@@ -135,13 +150,11 @@ function App() {
     };
     const handleEscClose = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && (modalContent || showModalRef.current)) {
-          closeModal();
+        closeModal();
       }
     };
 
-window.addEventListener('keydown', handleEscClose);
-
-
+    window.addEventListener('keydown', handleEscClose);
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
 
@@ -178,10 +191,13 @@ window.addEventListener('keydown', handleEscClose);
       pedra1: new Image(),
       pedra2: new Image(),
       javascript: new Image(),
-
+      whats: new Image(),
+      github: new Image(),
     };
 
     // Carregar imagens
+    images.github.src = '/github.png';
+    images.whats.src = '/whats.png';
     images.javascript.src = '/javascript.png';
     images.pedra.src = '/pedra.png';
     images.pedra1.src = '/pedra1.png';
@@ -254,26 +270,25 @@ window.addEventListener('keydown', handleEscClose);
         posRef.current.y = 0;
       }
       //coloca colisao
-      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x<=660 && posRef.current.x>=480) {
+      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x <= 660 && posRef.current.x >= 480) {
         posRef.current.y = 210;
       }
-      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=460 && posRef.current.x<=470) {
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x >= 460 && posRef.current.x <= 470) {
         posRef.current.x = 460;
       }
-      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=600 && posRef.current.x<=700) {
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x >= 600 && posRef.current.x <= 700) {
         posRef.current.x = 700;
       }
       //casa2
-      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=1165 && posRef.current.x<=1170) {
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x >= 1165 && posRef.current.x <= 1170) {
         posRef.current.x = 1165;
       }
-      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x>=1350 && posRef.current.x<=1390) {
+      if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x >= 1350 && posRef.current.x <= 1390) {
         posRef.current.x = 1390;
       }
-      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x<=1380 && posRef.current.x>=1165) {
+      if (posRef.current.y < 210 && posRef.current.y > 200 && posRef.current.x <= 1380 && posRef.current.x >= 1165) {
         posRef.current.y = 210;
       }
-
 
       setRenderPos({ x: posRef.current.x, y: posRef.current.y });
       setDirection(directionRef.current);
@@ -299,6 +314,9 @@ window.addEventListener('keydown', handleEscClose);
 
       // Desenhar elementos do mapa
 
+      context.drawImage(images.whats, 1250, 270, 30, 30);
+      
+
       //vertical esqerda
       context.drawImage(images.terra1, 588, 270, 40, 40);
       context.drawImage(images.terra1, 588, 310, 40, 40);
@@ -322,7 +340,7 @@ window.addEventListener('keydown', handleEscClose);
       context.drawImage(images.terra1, 1088, 490, 40, 40);
       context.drawImage(images.terra3, 1088, 530, 40, 40);
       context.drawImage(images.terra2, 1088, 570, 40, 40);
-      
+
       // horizontam superior
       context.drawImage(images.terra1, 588, 410, 40, 40);
       context.drawImage(images.terra1, 628, 410, 40, 40);
@@ -340,7 +358,6 @@ window.addEventListener('keydown', handleEscClose);
       context.drawImage(images.terra2, 1108, 410, 40, 40);
       context.drawImage(images.terra4, 1148, 410, 40, 40);
       context.drawImage(images.terra2, 1188, 410, 40, 40);
-      context.drawImage(images.terra4, 1208, 410, 40, 40);
       context.drawImage(images.terra1, 1248, 410, 40, 40);
       // horizontam inferior
       context.drawImage(images.terra1, 588, 610, 40, 40);
@@ -361,8 +378,27 @@ window.addEventListener('keydown', handleEscClose);
       context.drawImage(images.terra2, 1188, 610, 40, 40);
       context.drawImage(images.terra4, 1208, 610, 40, 40);
       context.drawImage(images.terra1, 1248, 610, 40, 40);
-     
-     //vertical direita
+      context.drawImage(images.terra1, 588, 650, 40, 40);
+      context.drawImage(images.terra1, 628, 650, 40, 40);
+      context.drawImage(images.terra3, 668, 650, 40, 40);
+      context.drawImage(images.terra2, 708, 650, 40, 40);
+      context.drawImage(images.terra4, 748, 650, 40, 40);
+      context.drawImage(images.terra1, 788, 650, 40, 40);
+      context.drawImage(images.terra1, 828, 650, 40, 40);
+      context.drawImage(images.terra3, 868, 650, 40, 40);
+      context.drawImage(images.terra2, 908, 650, 40, 40);
+      context.drawImage(images.terra4, 948, 650, 40, 40);
+      context.drawImage(images.terra1, 988, 650, 40, 40);
+      context.drawImage(images.terra1, 1028, 650, 40, 40);
+      context.drawImage(images.terra3, 1068, 650, 40, 40);
+      context.drawImage(images.terra2, 1108, 650, 40, 40);
+      context.drawImage(images.terra4, 1148, 650, 40, 40);
+      context.drawImage(images.terra2, 1188, 650, 40, 40);
+      context.drawImage(images.terra4, 1208, 650, 40, 40);
+      context.drawImage(images.terra1, 1248, 650, 40, 40);
+      context.drawImage(images.terra1, 1288, 650, 40, 40);
+
+      //vertical direita
       context.drawImage(images.terra1, 1288, 270, 40, 40);
       context.drawImage(images.terra1, 1288, 310, 40, 40);
       context.drawImage(images.terra3, 1288, 350, 40, 40);
@@ -400,11 +436,11 @@ window.addEventListener('keydown', handleEscClose);
       context.drawImage(images.arbusto, 930, 500, 60, 40);
       context.drawImage(images.arbusto1, 1180, 790, 60, 40);
       context.drawImage(images.arbusto1, 1030, 70, 60, 40);
-      
+
       context.drawImage(images.house, 500, 20, 254, 254);
       context.drawImage(images.house, 1200, 20, 254, 254);
       context.drawImage(images.mulher, 600, 200, 80, 100);
-      context.drawImage(images.mulher1, 1200, 300, 90, 90);
+      context.drawImage(images.mulher1, 1200, 300, 90, 100);
       context.drawImage(images.homem, 300, 400, 100, 100);
       context.drawImage(images.homem1, 1600, 500, 100, 100);
       context.drawImage(images.homem2, 500, 700, 100, 100);
@@ -416,6 +452,7 @@ window.addEventListener('keydown', handleEscClose);
       context.drawImage(images.arvore2, 330, 780, 50, 50);
       context.drawImage(images.arvore1, 20, 500, 150, 150);
       context.drawImage(images.barraca, 380, 320, 130, 130);
+      context.drawImage(images.github, 613, 170, 60, 50);
 
       // Desenhar bandeira animada (apenas quando carregada)
       if (images.bandeira.complete) {
@@ -534,14 +571,11 @@ window.addEventListener('keydown', handleEscClose);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('keydown', handleEscClose);
-
-      
     };
   }, []);
 
   const closeModal = () => {
     setModalContent(null);
-    
   };
 
   return (
@@ -647,14 +681,14 @@ window.addEventListener('keydown', handleEscClose);
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            background: 'white',
+            background: 'rgba(255, 255, 255, 0.23)',
             color: 'black',
-            padding: '200px',
+            padding: '200px', // Reduzi o padding para melhor visualização com a imagem
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
             zIndex: 20,
-            textAlign: 'center',
-            minWidth: '300px',
+            
+            minWidth: '800px',
           }}
         >
           <button
@@ -673,7 +707,7 @@ window.addEventListener('keydown', handleEscClose);
           >
             X
           </button>
-          <p>{modalContent}</p>
+          <div dangerouslySetInnerHTML={{ __html: modalContent }} />
         </div>
       )}
     </div>
