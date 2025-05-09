@@ -91,7 +91,7 @@ function App() {
             </div>
             
             <div id="preview" style="display: none; width: 300px;">
-              <img id="previewImage" src="/placeholder.svg" alt="Preview" style="width: 250px; height: 250px; object-fit: contain; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+              <img id="previewImage"  alt="Preview" style="width: 250px; height: 250px; object-fit: contain; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
               <h3 id="previewTitle" style="margin: 0 0 10px 0; font-size: 24px; color: #333;"></h3>
               <p id="previewDesc" style="margin: 0; font-size: 16px; line-height: 1.5; color: #555;"></p>
             </div>
@@ -127,7 +127,7 @@ function App() {
     setModalContent(`
       <div style="display: flex; align-items: center; gap: 30px;">
         <div style="flex-shrink: 0;">
-          <img src="/eu.jpeg" alt="Minha Foto" style="width: 300px; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.31);" onerror="this.src='/placeholder.svg?height=300&width=300'; this.onerror=null;" />
+          <img src="/eu.jpeg" alt="Minha Foto" style="width: 300px; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.31);" this.onerror=null;" />
         </div>
         <div>
           <h2 style="margin-top: 0; color: #333; font-size: 28px; border-bottom: 2px solid #4a90e2; padding-bottom: 10px; margin-bottom: 20px;">Thiago Tarantino</h2>
@@ -184,7 +184,7 @@ function App() {
     const context = canvas?.getContext("2d")
     if (!canvas || !context) return
 
-    const speed = 5
+    const speed = 10
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key in keys.current) {
