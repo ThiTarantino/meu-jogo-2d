@@ -33,7 +33,7 @@ function App() {
     },
     {
       id: 2,
-      x: 1250,
+      x: 1365,
       y: 300,
       radius: 100,
       message: "Aperte ENTER para falar comigo no WhatsApp!",
@@ -109,7 +109,9 @@ function App() {
       action: () => {
         setModalContent(`
           <div>
-            Olá, Não sei o que colocar aqui!!!!!!
+            <p style="font-size: 18px; line-height: 1.6; color: #444; margin-bottom: 15px;">
+            Não sei o que colocar aqui!!!.
+          </p>
           </div>
         `)
         setShowModal(true)
@@ -414,7 +416,7 @@ function App() {
 
       // Desenhar elementos do mapa
 
-      context.drawImage(images.whats, 1250, 270, 30, 30)
+      context.drawImage(images.whats, 1350, 270, 30, 30)
 
       //vertical esqerda
       context.drawImage(images.terra1, 588, 270, 40, 40)
@@ -631,7 +633,7 @@ function App() {
       context.drawImage(images.lamp, 565, 350, 30, 50)
       context.drawImage(images.lamp, 1270, 550, 30, 50)
       context.drawImage(images.mulher, 705, 240, 80, 100)
-      context.drawImage(images.mulher1, 1200, 300, 90, 100)
+      context.drawImage(images.mulher1, 1320, 300, 90, 100)
       context.drawImage(images.homem, 300, 400, 100, 100)
       context.drawImage(images.homem1, 1600, 500, 100, 100)
       context.drawImage(images.homem2, 500, 700, 100, 100)
@@ -780,54 +782,24 @@ function App() {
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+    <div className="container">
       <canvas
         ref={canvasRef}
         width={window.innerWidth}
         height={window.innerHeight}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          border: "none",
-          margin: 0,
-          padding: 0,
-          display: "block",
-          zIndex: 0,
-        }}
+        className="canvas"
       />
 
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          background: "rgba(255, 255, 255, 0.7)",
-          padding: "10px",
-          borderRadius: "5px",
-          zIndex: 1000,
-          fontFamily: "sans-serif",
-          fontSize: "14px",
-        }}
-      >
+      <div className="coordinates-display">
         Coordenadas: X: {Math.round(renderPos.x)}, Y: {Math.round(renderPos.y)}
       </div>
 
       {showWelcomePopup && (
         <div
+          className="welcome-popup"
           style={{
-            position: "absolute",
             top: renderPos.y - 100,
             left: renderPos.x,
-            background: "white",
-            color: "black",
-            padding: "6px 12px",
-            borderRadius: "4px",
-            transform: "translateX(-35%)",
-            pointerEvents: "none",
-            zIndex: 10,
           }}
         >
           <p>
@@ -840,81 +812,27 @@ function App() {
 
       {nearNPCRef.current && !showModalRef.current && !modalContent && (
         <div
+          className="npc-message"
           style={{
-            position: "absolute",
             top: nearNPCRef.current.y - 50,
             left: nearNPCRef.current.x,
-            background: "white",
-            color: "black",
-            padding: "8px 16px",
-            borderRadius: "8px",
-            transform: "translateX(-50%)",
-            pointerEvents: "none",
-            zIndex: 10,
-            border: "2px solid #4a90e2",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-            maxWidth: "200px",
-            textAlign: "center",
-            fontSize: "14px",
           }}
         >
           {nearNPCRef.current.message}
-          <div
-            style={{
-              position: "absolute",
-              bottom: -10,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: 0,
-              height: 0,
-              borderLeft: "10px solid transparent",
-              borderRight: "10px solid transparent",
-              borderTop: "10px solid white",
-            }}
-          />
+          <div className="npc-message-arrow" />
         </div>
       )}
 
       {modalContent && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            fontSize:"200px",
-            transform: "translate(-50%, -50%)",
-            background: "rgba(255, 255, 255, 0.6)",
-            color: "rgba(0, 0, 0, 0.51)",
-            padding: "30px",
-            borderRadius: "12px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-            zIndex: 20,
-            minWidth: "800px",
-            backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255, 255, 255, 0.5)",
-          }}
-        >
-          <button
-            onClick={closeModal}
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#333",
-            }}
-          >
+        <div className="modal-overlay">
+          <button onClick={closeModal} className="modal-close-button">
             X
           </button>
           <div dangerouslySetInnerHTML={{ __html: modalContent }} />
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

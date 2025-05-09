@@ -15,3 +15,101 @@ button{
   bottom: 0;
   right: 0;
 }
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  z-index: 0;
+}
+
+.coordinates-display {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.welcome-popup {
+  position: absolute;
+  background: white;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transform: translateX(-35%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.npc-message {
+  position: absolute;
+  background: white;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+  border: 2px solid #4a90e2;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  max-width: 200px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.npc-message-arrow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 200px; /* Atenção a este valor, pode ser muito grande */
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.51);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 20;
+  min-width: 800px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
