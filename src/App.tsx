@@ -57,12 +57,12 @@ function App() {
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
+            
           </div>
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
             <img src="/javascript.png" alt="Logo JavaScript" style="width: 150px; height: 150px; margin-top: 10px;" />
             
-          </div>
           </div>
         `);
         setShowModal(true);
@@ -100,6 +100,7 @@ function App() {
   const showModalRef = useRef(false);
   const bandeiraCarregadaRef = useRef(false);
   const fogueiraCarregadaRef = useRef(false);
+  const fogueira1CarregadaRef = useRef(false);
 
   // Configuração da animação da bandeira
   const flagAnimationRef = useRef({
@@ -119,6 +120,7 @@ function App() {
     time: 0,
   });
 
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
@@ -131,15 +133,25 @@ function App() {
         keys.current[e.key as keyof typeof keys.current] = true;
         setShowWelcomePopup(false);
       }
-
+    
       if (e.key === 'Enter' && nearNPCRef.current && !showModalRef.current) {
         showModalRef.current = true;
         if (nearNPCRef.current.action) {
           nearNPCRef.current.action();
+          // Remove o setTimeout que fechava o modal automaticamente
+          if (!nearNPCRef.current.message.includes('GitHub') && !nearNPCRef.current.message.includes('WhatsApp')) {
+            // O modal com conteúdo será controlado pelo botão 'X' e 'Escape'
+          } else {
+            setTimeout(() => {
+              showModalRef.current = false;
+            }, 500);
+          }
+        } else {
+          // Remove o setTimeout para NPCs sem ação de conteúdo
+          setTimeout(() => {
+            showModalRef.current = false;
+          }, 500);
         }
-        setTimeout(() => {
-          showModalRef.current = false;
-        }, 500);
       }
     };
 
@@ -186,11 +198,20 @@ function App() {
       localfogueira: new Image(),
       bandeira: new Image(),
       fogueira: new Image(),
+      fogueira1: new Image(),
       barraca: new Image(),
       pedra: new Image(),
       pedra1: new Image(),
       pedra2: new Image(),
       javascript: new Image(),
+      java: new Image(),
+      typescript: new Image(),
+      react: new Image(),
+      node: new Image(),
+      docker: new Image(),
+      prisma: new Image(),
+      c: new Image(),
+      git: new Image(),
       whats: new Image(),
       github: new Image(),
     };
@@ -199,6 +220,14 @@ function App() {
     images.github.src = '/github.png';
     images.whats.src = '/whats.png';
     images.javascript.src = '/javascript.png';
+    images.java.src = '/java.webp';
+    images.typescript.src = '/typescript.png';
+    images.react.src = '/react.png';
+    images.node.src = '/node.png';
+    images.docker.src = '/docker.png';
+    images.prisma.src = '/prisma.png';
+    images.c.src = '/c++.png';
+    images.git.src = '/git.png';
     images.pedra.src = '/pedra.png';
     images.pedra1.src = '/pedra1.png';
     images.pedra2.src = '/pedra2.png';
@@ -229,15 +258,16 @@ function App() {
     images.mulher1.src = '/mulher1.png';
     images.bandeira.src = '/bandeira.png';
     images.fogueira.src = '/fogueira.png';
+    images.fogueira1.src = '/fogueira1.png';
     images.barraca.src = '/barraca.png';
 
     let animationFrameId: number;
 
     const draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Lógica de movimento
-      if (!showModalRef.current && !modalContent) {
+    
+      // Lógica de movimento - BLOQUEIA APENAS SE modalContent EXISTIR
+      if (!modalContent) {
         if (keys.current.ArrowUp) {
           posRef.current.y -= speed;
           directionRef.current = 'up';
@@ -315,7 +345,7 @@ function App() {
       // Desenhar elementos do mapa
 
       context.drawImage(images.whats, 1250, 270, 30, 30);
-      
+
 
       //vertical esqerda
       context.drawImage(images.terra1, 588, 270, 40, 40);
@@ -328,6 +358,12 @@ function App() {
       context.drawImage(images.terra3, 588, 530, 40, 40);
       context.drawImage(images.terra2, 588, 570, 40, 40);
       context.drawImage(images.terra4, 588, 610, 40, 40);
+      context.drawImage(images.terra4, 548, 410, 40, 40);
+      context.drawImage(images.terra1, 548, 450, 40, 40);
+      context.drawImage(images.terra1, 548, 490, 40, 40);
+      context.drawImage(images.terra3, 548, 530, 40, 40);
+      context.drawImage(images.terra2, 548, 570, 40, 40);
+      context.drawImage(images.terra4, 548, 610, 40, 40);
       //vertical esquerda centro
       context.drawImage(images.terra4, 788, 410, 40, 40);
       context.drawImage(images.terra1, 788, 450, 40, 40);
@@ -409,6 +445,14 @@ function App() {
       context.drawImage(images.terra3, 1288, 530, 40, 40);
       context.drawImage(images.terra2, 1288, 570, 40, 40);
       context.drawImage(images.terra4, 1288, 610, 40, 40);
+
+
+      context.drawImage(images.terra4, 1318, 410, 40, 40);
+      context.drawImage(images.terra1, 1318, 450, 40, 40);
+      context.drawImage(images.terra1, 1318, 490, 40, 40);
+      context.drawImage(images.terra3, 1318, 530, 40, 40);
+      context.drawImage(images.terra2, 1318, 570, 40, 40);
+      context.drawImage(images.terra4, 1318, 610, 40, 40);
       //Elementos do mapa
       context.drawImage(images.pedra, 1220, 730, 40, 40);
       context.drawImage(images.pedra1, 810, 110, 40, 40);
@@ -416,7 +460,7 @@ function App() {
       context.drawImage(images.pedra, 1220, 730, 40, 40);
       context.drawImage(images.pedra1, 230, 670, 10, 10);
       context.drawImage(images.pedra, 160, 390, 30, 30);
-      context.drawImage(images.localfogueira, 300, 500, 100, 100);
+
       context.drawImage(images.tronco, 258, 470, 40, 40);
       context.drawImage(images.tronco2, 290, 580, 70, 30);
       context.drawImage(images.tronco1, 200, 750, 40, 40);
@@ -499,7 +543,7 @@ function App() {
         );
         context.drawImage(
           images.bandeira,
-          flagAnimationRef.current.frame * flagAnimationRef.current.frameWidth,
+          flagAnimationRef.current.frame* flagAnimationRef.current.frameWidth,
           0,
           flagAnimationRef.current.frameWidth,
           flagAnimationRef.current.frameHeight,
@@ -509,7 +553,7 @@ function App() {
           flagAnimationRef.current.frameHeight
         );
       }
-      if (images.fogueira.complete) {
+      if (images.fogueira1.complete) {
         if (!fogueiraCarregadaRef.current) {
           fogueiraCarregadaRef.current = true;
         }
@@ -519,20 +563,21 @@ function App() {
           Math.floor(fogueiraa.current.time) % fogueiraa.current.frameCount;
 
         context.drawImage(
-          images.fogueira,
+          images.fogueira1,
           fogueiraa.current.frame * fogueiraa.current.frameWidth,
           0,
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight,
           335, //
-          483, //
+          513, //
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight
         );
       }
+
       if (images.fogueira.complete) {
-        if (!fogueiraCarregadaRef.current) {
-          fogueiraCarregadaRef.current = true;
+        if (!fogueira1CarregadaRef.current) {
+          fogueira1CarregadaRef.current = true;
         }
 
         fogueiraa.current.time += fogueiraa.current.animationSpeed;
@@ -545,7 +590,7 @@ function App() {
           0,
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight,
-          1620, //
+          1630, //
           600, //
           fogueiraa.current.frameWidth,
           fogueiraa.current.frameHeight
@@ -571,11 +616,13 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('keydown', handleEscClose);
+      cancelAnimationFrame(animationFrameId); // Adicione esta linha para limpar o requestAnimationFrame
     };
-  }, []);
+  }, [modalContent]); // Remova showModal daqui, pois agora modalContent controla a visibilidade do modal
 
   const closeModal = () => {
     setModalContent(null);
+    showModalRef.current = false; // Garante que a interação possa ocorrer novamente
   };
 
   return (
@@ -683,11 +730,10 @@ function App() {
             transform: 'translate(-50%, -50%)',
             background: 'rgba(255, 255, 255, 0.23)',
             color: 'black',
-            padding: '200px', // Reduzi o padding para melhor visualização com a imagem
+            padding: '20px',
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
             zIndex: 20,
-            
             minWidth: '800px',
           }}
         >
