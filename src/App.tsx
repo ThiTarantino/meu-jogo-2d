@@ -125,7 +125,7 @@ function App() {
     setModalContent(`
       <div style="display: flex; align-items: center; gap: 30px;">
         <div style="flex-shrink: 0;">
-          <img src="/eu.jpeg" alt="Minha Foto" style="width: 300px; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);" onerror="this.src='/placeholder.svg?height=300&width=300'; this.onerror=null;" />
+          <img src="/eu.jpeg" alt="Minha Foto" style="width: 300px; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.31);" onerror="this.src='/placeholder.svg?height=300&width=300'; this.onerror=null;" />
         </div>
         <div>
           <h2 style="margin-top: 0; color: #333; font-size: 28px; border-bottom: 2px solid #4a90e2; padding-bottom: 10px; margin-bottom: 20px;">Thiago Tarantino</h2>
@@ -430,9 +430,18 @@ function App() {
       context.drawImage(images.terra4, 548, 410, 40, 40)
       context.drawImage(images.terra1, 548, 450, 40, 40)
       context.drawImage(images.terra1, 548, 490, 40, 40)
-      context.drawImage(images.terra3, 548, 530, 40, 40)
+      context.drawImage(images.terra1, 548, 530, 40, 40)
       context.drawImage(images.terra2, 548, 570, 40, 40)
       context.drawImage(images.terra4, 548, 610, 40, 40)
+
+      context.drawImage(images.terra1, 508, 450, 40, 40)
+      context.drawImage(images.terra1, 508, 490, 40, 40)
+      context.drawImage(images.terra1, 508, 530, 40, 40)
+      context.drawImage(images.terra2, 508, 570, 40, 40)
+      context.drawImage(images.terra1, 468, 450, 40, 40)
+      context.drawImage(images.terra1, 468, 490, 40, 40)
+      context.drawImage(images.terra1, 468, 530, 40, 40)
+      context.drawImage(images.terra2, 468, 570, 40, 40)
       //vertical esquerda centro
       context.drawImage(images.terra4, 788, 410, 40, 40)
       context.drawImage(images.terra1, 788, 450, 40, 40)
@@ -538,9 +547,46 @@ function App() {
       context.drawImage(images.terra4, 1318, 410, 40, 40)
       context.drawImage(images.terra1, 1318, 450, 40, 40)
       context.drawImage(images.terra1, 1318, 490, 40, 40)
-      context.drawImage(images.terra3, 1318, 530, 40, 40)
+      context.drawImage(images.terra1, 1318, 530, 40, 40)
       context.drawImage(images.terra2, 1318, 570, 40, 40)
       context.drawImage(images.terra4, 1318, 610, 40, 40)
+      
+
+      context.drawImage(images.terra1, 1358, 450, 40, 40)
+      context.drawImage(images.terra1, 1358, 490, 40, 40)
+      context.drawImage(images.terra1, 1358, 530, 40, 40)
+      context.drawImage(images.terra2, 1358, 570, 40, 40)
+      context.drawImage(images.terra1, 1398, 450, 40, 40)
+      context.drawImage(images.terra1, 1398, 490, 40, 40)
+      context.drawImage(images.terra1, 1398, 530, 40, 40)
+      context.drawImage(images.terra2, 1398, 570, 40, 40)
+      context.drawImage(images.terra1, 1438, 490, 40, 40)
+      context.drawImage(images.terra1, 1438, 530, 40, 40)
+      context.drawImage(images.terra1, 1478, 490, 40, 40)
+      context.drawImage(images.terra1, 1478, 530, 40, 40)
+      context.drawImage(images.terra1, 1518, 490, 40, 40)
+      context.drawImage(images.terra1, 1518, 530, 40, 40)
+      context.drawImage(images.terra1, 1558, 490, 40, 40)
+      context.drawImage(images.terra1, 1558, 530, 40, 40)
+      context.drawImage(images.terra1, 1598, 490, 40, 40)
+      context.drawImage(images.terra1, 1598, 530, 40, 40)
+      context.drawImage(images.terra1, 1618, 490, 40, 40)
+      context.drawImage(images.terra1, 1618, 530, 40, 40)
+      context.drawImage(images.terra1, 1658, 490, 40, 40)
+      context.drawImage(images.terra1, 1658, 530, 40, 40)
+      context.drawImage(images.terra1, 1698, 490, 40, 40)
+      context.drawImage(images.terra1, 1698, 530, 40, 40)
+      context.drawImage(images.terra1, 1738, 490, 40, 40)
+      context.drawImage(images.terra1, 1738, 530, 40, 40)
+      context.drawImage(images.terra1, 1778, 490, 40, 40)
+      context.drawImage(images.terra1, 1778, 530, 40, 40)
+      context.drawImage(images.terra1, 1818, 490, 40, 40)
+      context.drawImage(images.terra1, 1818, 530, 40, 40)
+      context.drawImage(images.terra1, 1858, 490, 40, 40)
+      context.drawImage(images.terra1, 1858, 530, 40, 40)
+      context.drawImage(images.terra1, 1898, 490, 40, 40)
+      context.drawImage(images.terra1, 1898, 530, 40, 40)
+      
       //Elementos do mapa
 
       context.drawImage(images.pedra2, 120, 150, 15, 15)
@@ -835,9 +881,10 @@ function App() {
             position: "absolute",
             top: "50%",
             left: "50%",
+            fontSize:"200px",
             transform: "translate(-50%, -50%)",
-            background: "rgba(255, 255, 255, 0.9)",
-            color: "black",
+            background: "rgba(255, 255, 255, 0.6)",
+            color: "rgba(0, 0, 0, 0.51)",
             padding: "30px",
             borderRadius: "12px",
             boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
