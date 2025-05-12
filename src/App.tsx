@@ -371,7 +371,7 @@ function App() {
         posRef.current.x = 700
       }
       //casa2
-      if (posRef.current.y < 260 && posRef.current.y > 50 && posRef.current.x >= 1165 && posRef.current.x <= 1170) {
+      if (posRef.current.y < 260 && posRef.current.y > 50 && posRef.current.x >= 1165 && posRef.current.x <= 1180) {
         posRef.current.x = 1165
       }
       if (posRef.current.y < 210 && posRef.current.y > 50 && posRef.current.x >= 1350 && posRef.current.x <= 1390) {
