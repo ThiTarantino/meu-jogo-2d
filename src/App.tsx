@@ -524,6 +524,31 @@ function App() {
       context.drawImage(images.terra2, 988, 850, 40, 40)
       context.drawImage(images.terra2, 988, 890, 40, 40)
 
+      context.drawImage(images.terra2, 908, 220, 40, 40)
+      context.drawImage(images.terra2, 908, 180, 40, 40)
+      context.drawImage(images.terra2, 908, 140, 40, 40)
+      context.drawImage(images.terra2, 908, 100, 40, 40)
+      context.drawImage(images.terra2, 908, 60, 40, 40)
+      context.drawImage(images.terra2, 908, 20, 40, 40)
+      context.drawImage(images.terra2, 908, 0, 40, 40)
+      context.drawImage(images.terra2, 948, 220, 40, 40)
+      context.drawImage(images.terra2, 948, 180, 40, 40)
+      context.drawImage(images.terra2, 948, 140, 40, 40)
+      context.drawImage(images.terra2, 948, 100, 40, 40)
+      context.drawImage(images.terra2, 948, 60, 40, 40)
+      context.drawImage(images.terra2, 948, 20, 40, 40)
+      context.drawImage(images.terra2, 948, 0, 40, 40)
+      context.drawImage(images.terra2, 988, 220, 40, 40)
+      context.drawImage(images.terra2, 988, 180, 40, 40)
+      context.drawImage(images.terra2, 988, 140, 40, 40)
+      context.drawImage(images.terra2, 988, 100, 40, 40)
+      context.drawImage(images.terra2, 988, 60, 40, 40)
+      context.drawImage(images.terra2, 988, 20, 40, 40)
+      context.drawImage(images.terra2, 988, 0, 40, 40)
+      
+      context.drawImage(images.terra2, 988, 850, 40, 40)
+      context.drawImage(images.terra2, 988, 890, 40, 40)
+
       context.drawImage(images.terra1, 988, 650, 40, 40)
       context.drawImage(images.terra1, 1028, 650, 40, 40)
       context.drawImage(images.terra3, 1068, 650, 40, 40)
@@ -533,6 +558,8 @@ function App() {
       context.drawImage(images.terra4, 1208, 650, 40, 40)
       context.drawImage(images.terra1, 1248, 650, 40, 40)
       context.drawImage(images.terra1, 1288, 650, 40, 40)
+
+     
 
       //vertical direita
       context.drawImage(images.terra1, 1288, 270, 40, 40)
@@ -568,6 +595,28 @@ function App() {
       context.drawImage(images.terra1, 1478, 530, 40, 40)
       context.drawImage(images.terra1, 1518, 490, 40, 40)
       context.drawImage(images.terra1, 1518, 530, 40, 40)
+
+      context.drawImage(images.terra1, 1518, 570, 40, 40)
+      context.drawImage(images.terra1, 1518, 610, 40, 40)
+      context.drawImage(images.terra1, 1518, 650, 40, 40)
+      context.drawImage(images.terra1, 1518, 690, 40, 40)
+      context.drawImage(images.terra1, 1518, 730, 40, 40)
+      context.drawImage(images.terra1, 1518, 770, 40, 40)
+      context.drawImage(images.terra1, 1518, 810, 40, 40)
+      context.drawImage(images.terra1, 1518, 850, 40, 40)
+      context.drawImage(images.terra1, 1518, 890, 40, 40)
+      
+      context.drawImage(images.terra1, 1558, 570, 40, 40)
+      context.drawImage(images.terra1, 1558, 610, 40, 40)
+      context.drawImage(images.terra1, 1558, 650, 40, 40)
+      context.drawImage(images.terra1, 1558, 690, 40, 40)
+      context.drawImage(images.terra1, 1558, 730, 40, 40)
+      context.drawImage(images.terra1, 1558, 770, 40, 40)
+      context.drawImage(images.terra1, 1558, 810, 40, 40)
+      context.drawImage(images.terra1, 1558, 850, 40, 40)
+      context.drawImage(images.terra1, 1558, 890, 40, 40)
+
+
       context.drawImage(images.terra1, 1558, 490, 40, 40)
       context.drawImage(images.terra1, 1558, 530, 40, 40)
       context.drawImage(images.terra1, 1598, 490, 40, 40)
